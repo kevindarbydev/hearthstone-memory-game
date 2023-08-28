@@ -1,3 +1,6 @@
+* {
+  background-color: #242424;
+}
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -6,14 +9,14 @@
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
+  color: brown;
 }
-
 .grid {
   height: 400px;
   width: 450px;
   display: flex;
   flex-direction: column; /* Align children vertically */
-  padding:2rem;
+  padding: 2rem;
   margin-bottom: 12rem;
 }
 .tile {
@@ -21,19 +24,29 @@
   font-size: large;
   border: 2px solid black;
   border-radius: 10%;
-  flex:1;
+  flex: 1;
 }
 .row {
   display: flex;
-  height: 100px;  
+  height: 100px;
 }
 .title {
   font-size: 24px;
-  color: brown;
 }
 .counter {
   font-size: 20px;
-  color: brown;
   margin-top: -1rem;
 }
-
+.matched-tile {
+  opacity: 0.4;
+}
+.bottom {
+  align-items: center;
+}
+.resetBtn {
+  margin-top: 1rem;
+  width: 50%;
+  background-color: brown;
+  color: black;
+  font: bold;
+}

@@ -24,8 +24,3 @@ export { PriestImage };
 
 import BlankImage from "./blank.png";
 export { BlankImage };
-
-import TileComplete from "./GreenCheckMark.jpg";
-export { TileComplete }
-
-
