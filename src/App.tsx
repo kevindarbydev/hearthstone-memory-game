@@ -52,8 +52,10 @@ function App() {
   const [board, setBoard] = useState<Tile[][]>([]);
   const [moveCount, setMoveCount] = useState(0);
   const [clickedTile, setClickedTile] = useState<Tile | null>(null);
+  const [gameCompleted, setGameCompleted] = useState(false);
 
   useEffect(() => {
+    setGameCompleted(false);
     const shuffledImages = shuffleArray(images);
     const initialBoard: Tile[][] = Array.from({ length: 4 }, (_, rowIndex) =>
       shuffledImages
@@ -83,6 +85,7 @@ function App() {
         }))
     );
     setBoard(resetBoard);
+    setGameCompleted(false);
     setMoveCount(0);
   };
 
@@ -109,6 +112,14 @@ function App() {
           matchedBoard[clickedTile.rowIndex][clickedTile.colIndex].isMatched =
             true;
           setBoard(matchedBoard);
+
+          // Check if all tiles are matched
+          const allTilesMatched = matchedBoard.every((row) =>
+            row.every((tile) => tile.isMatched)
+          );
+          if (allTilesMatched) {
+            setGameCompleted(true);
+          }
         } else {
           //no match, reset both tiles to BlankImage after a delay
           const resetBoard = [...updatedBoard];
@@ -132,27 +143,40 @@ function App() {
     <div className="grid">
       <h2 className="title">Hearthstone Memory Game</h2>
       <h3 className="counter">Guesses: {moveCount}</h3>
-      {board.map((row, rowIndex) => (
-        <div key={rowIndex} className="row">
-          {row.map((tile, colIndex) => (
-            <img
-              key={colIndex}
-              src={
-                tile.isMatched
-                  ? tile.image
-                  : tile.isFlipped
-                  ? tile.image
-                  : BlankImage
-              }
-              alt={`Image ${rowIndex}-${colIndex}`}
-              className={`tile ${tile.isMatched ? "matched-tile" : ""}`}
-              onClick={handleTileClick}
-              data-row={rowIndex}
-              data-col={colIndex}
-            />
+      {!gameCompleted && (
+        <div>
+          {board.map((row, rowIndex) => (
+            <div key={rowIndex} className="row">
+              {row.map((tile, colIndex) => (
+                <img
+                  key={colIndex}
+                  src={
+                    tile.isMatched
+                      ? tile.image
+                      : tile.isFlipped
+                      ? tile.image
+                      : BlankImage
+                  }
+                  alt={`Image ${rowIndex}-${colIndex}`}
+                  className={`tile ${tile.isMatched ? "matched-tile" : ""}`}
+                  onClick={handleTileClick}
+                  data-row={rowIndex}
+                  data-col={colIndex}
+                />
+              ))}
+            </div>
           ))}
         </div>
-      ))}
+      )}
+
+      {gameCompleted && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>Congratulations! You've matched all tiles!</p>           
+          </div>
+        </div>
+      )}
+
       <div className="bottom">
         <button onClick={handleReset} className="resetBtn">
           Reset
