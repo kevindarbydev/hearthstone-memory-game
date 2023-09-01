@@ -166,7 +166,7 @@ function App() {
 
       {gameCompleted && (
         <div className="popup">
-          <div className="popup-content">
+          <div className="popup-text">
             <p>Congratulations! You've matched all tiles!</p>
           </div>
         </div>
