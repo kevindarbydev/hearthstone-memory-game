@@ -96,7 +96,6 @@ function App() {
     const colIndex = parseInt(
       event.currentTarget.getAttribute("data-col") || "0"
     );
-
     const clickedTileInfo = board[rowIndex][colIndex];
 
     if (!clickedTileInfo.isFlipped) {
@@ -113,16 +112,14 @@ function App() {
             true;
           setBoard(matchedBoard);
 
-          // Check if all tiles are matched
-          const allTilesMatched = matchedBoard.every((row) =>
-            row.every((tile) => tile.isMatched)
+          const allTilesMatched = matchedBoard.every(
+            (row) => row.every((tile) => tile.isMatched) // check if all tiles are matched
           );
           if (allTilesMatched) {
             setGameCompleted(true);
           }
         } else {
-          //no match, reset both tiles to BlankImage after a delay
-          const resetBoard = [...updatedBoard];
+          const resetBoard = [...updatedBoard]; //no match, reset both tiles to blank after a delay
           setTimeout(() => {
             resetBoard[rowIndex][colIndex].isFlipped = false;
             resetBoard[clickedTile.rowIndex][clickedTile.colIndex].isFlipped =
@@ -130,11 +127,9 @@ function App() {
             setBoard(resetBoard);
           }, 1000);
         }
-        // Clear the clickedTile after checking for a match
-        setClickedTile(null);
+        setClickedTile(null); // clear the clickedTile after checking for a match
       } else {
-        // Store the clickedTile for comparison
-        setClickedTile({ ...clickedTileInfo, rowIndex, colIndex });
+        setClickedTile({ ...clickedTileInfo, rowIndex, colIndex }); // store the clickedTile for comparison
       }
     }
   };
@@ -172,7 +167,7 @@ function App() {
       {gameCompleted && (
         <div className="popup">
           <div className="popup-content">
-            <p>Congratulations! You've matched all tiles!</p>           
+            <p>Congratulations! You've matched all tiles!</p>
           </div>
         </div>
       )}
