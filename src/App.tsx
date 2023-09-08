@@ -1,4 +1,5 @@
 import { MouseEventHandler, useState, useEffect } from "react";
+import GameWon from "./components/GameWon";
 import "./App.css";
 import {
   DeathKnightImage,
@@ -55,7 +56,7 @@ function App() {
   const [gameCompleted, setGameCompleted] = useState(false);
 
   useEffect(() => {
-    setGameCompleted(false);
+    setGameCompleted(true);
     const shuffledImages = shuffleArray(images);
     const initialBoard: Tile[][] = Array.from({ length: 4 }, (_, rowIndex) =>
       shuffledImages
@@ -125,7 +126,7 @@ function App() {
             resetBoard[clickedTile.rowIndex][clickedTile.colIndex].isFlipped =
               false;
             setBoard(resetBoard);
-          }, 1000);
+          }, 800);
         }
         setClickedTile(null); // clear the clickedTile after checking for a match
       } else {
@@ -165,11 +166,7 @@ function App() {
       )}
 
       {gameCompleted && (
-        <div className="popup">
-          <div className="popup-text">
-            <p>Congratulations! You've matched all tiles!</p>
-          </div>
-        </div>
+        <GameWon />       
       )}
 
       <div className="bottom">
