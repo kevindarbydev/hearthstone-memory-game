@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import "../App.css";
 interface Score {
   SCOREKEY: string;
   name: string;
@@ -44,7 +44,7 @@ function HiScores() {
   return (
     <div className="">
       <h2>Leaderboard</h2>
-      <ul style={{ listStyleType: "none", textAlign: "center" }}>
+      <ul>
         {scores.map((score) => (
           <li key={score.SCOREKEY}>
             {capitalizeName(score.SCOREKEY)}: {score.count}

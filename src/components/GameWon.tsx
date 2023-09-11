@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-
-function GameWon({ score }) {
+interface GameWonProps {
+  score: number;
+}
+function GameWon({ score }: GameWonProps) {
   const [nameToSave, setNameToSave] = useState("");
   const [sentScore, setSentScore] = useState(false);
   const [moves, setMoves] = useState(0);
-  
 
-
-  useEffect(() => {    
-   setMoves(score);
-  }, [score])
+  useEffect(() => {
+    setMoves(score);
+  }, [score]);
 
   function handleNameChange(event: React.ChangeEvent<HTMLInputElement>) {
     setNameToSave(event.target.value);

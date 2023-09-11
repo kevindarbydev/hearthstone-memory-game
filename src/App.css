@@ -64,3 +64,6 @@
   color: black;
   font: bold;
 }
+ul {
+  list-style-type: none;
+}
