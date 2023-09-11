@@ -50,3 +50,17 @@
   color: black;
   font: bold;
 }
+.saveBtn {
+  margin-top: 1rem;
+  width: 50%;
+  background-color: brown;
+  color: black;
+  font: bold;
+}
+.hiscoreBtn {
+  margin-top: 1rem;
+  width: 50%;
+  background-color: brown;
+  color: black;
+  font: bold;
+}

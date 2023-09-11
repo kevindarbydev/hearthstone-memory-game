@@ -56,7 +56,7 @@ function App() {
   const [gameCompleted, setGameCompleted] = useState(false);
 
   useEffect(() => {
-    setGameCompleted(true);
+    setGameCompleted(false);
     const shuffledImages = shuffleArray(images);
     const initialBoard: Tile[][] = Array.from({ length: 4 }, (_, rowIndex) =>
       shuffledImages
@@ -70,8 +70,9 @@ function App() {
         }))
     );
     setBoard(initialBoard);
-  }, []);
-
+  
+  }, []);  
+ 
   const handleReset = () => {
     const shuffledImages = shuffleArray(images);
     const resetBoard: Tile[][] = Array.from({ length: 4 }, (_, rowIndex) =>
