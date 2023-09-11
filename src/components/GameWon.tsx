@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function GameWon() {
+function GameWon({ score }) {
   const [nameToSave, setNameToSave] = useState("");
+  const [sentScore, setSentScore] = useState(false);
+  const [moves, setMoves] = useState(0);
   const url = import.meta.env.VITE_URL;
+
+
+  useEffect(() => {    
+   setMoves(score);
+  })
 
   function handleNameChange(event: React.ChangeEvent<HTMLInputElement>) {
     setNameToSave(event.target.value);
@@ -20,6 +27,7 @@ function GameWon() {
     const data = {
       scoreKey: scoreKey,
       name: nameToSave,
+      count: moves,
     };
 
     const requestOptions = {
@@ -27,10 +35,10 @@ function GameWon() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data), 
+      body: JSON.stringify(data),
     };
 
-    try {      
+    try {
       fetch(url + "/saveScore", requestOptions)
         .then((response) => {
           if (!response.ok) {
@@ -38,8 +46,8 @@ function GameWon() {
           }
           return response.json();
         })
-        .then((responseData) => {       
-          console.log("Score saved successfully:", responseData);
+        .then(() => {
+          setSentScore(true);          
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -58,22 +66,22 @@ function GameWon() {
         </p>
       </div>
       <form>
-        <div className="submit-score">
-          <label htmlFor="name">Name or Nickname: </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={nameToSave}
-            onChange={handleNameChange}
-          />
-          <button className="saveBtn" onClick={handleSaveScore}>
-            Send Score
-          </button>
-        </div>
+        {!sentScore && (
+          <div className="submit-score">
+            <label htmlFor="name">Name or Nickname: </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={nameToSave}
+              onChange={handleNameChange}
+            />
+            <button className="saveBtn" onClick={handleSaveScore}>
+              Send Score
+            </button>
+          </div>
+        )}
         <br />
-
-        <button className="hiscoreBtn">View HiScores</button>
       </form>
     </div>
   );

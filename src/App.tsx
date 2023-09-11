@@ -12,6 +12,7 @@ import {
   PriestImage,
   BlankImage,
 } from "./assets";
+import HiScores from "./components/HiScores";
 
 const images = [
   DeathKnightImage,
@@ -49,11 +50,13 @@ function shuffleArray(array: string[]) {
   return shuffled;
 }
 
+
 function App() {
   const [board, setBoard] = useState<Tile[][]>([]);
   const [moveCount, setMoveCount] = useState(0);
   const [clickedTile, setClickedTile] = useState<Tile | null>(null);
   const [gameCompleted, setGameCompleted] = useState(false);
+  const [showScores, setShowScores] = useState(false);
 
   useEffect(() => {
     setGameCompleted(false);
@@ -73,6 +76,9 @@ function App() {
   
   }, []);  
  
+  const displayHiScores = (): void => {
+    setShowScores(!showScores);
+  }
   const handleReset = () => {
     const shuffledImages = shuffleArray(images);
     const resetBoard: Tile[][] = Array.from({ length: 4 }, (_, rowIndex) =>
@@ -127,7 +133,7 @@ function App() {
             resetBoard[clickedTile.rowIndex][clickedTile.colIndex].isFlipped =
               false;
             setBoard(resetBoard);
-          }, 800);
+          }, 700);
         }
         setClickedTile(null); // clear the clickedTile after checking for a match
       } else {
@@ -165,14 +171,17 @@ function App() {
           ))}
         </div>
       )}
+      {showScores && <HiScores />}
 
-      {gameCompleted && (
-        <GameWon />       
-      )}
+      {gameCompleted && <GameWon score={moveCount}/>}
 
       <div className="bottom">
         <button onClick={handleReset} className="resetBtn">
           Reset
+        </button>
+        <br />
+        <button className="hiscoreBtn" onClick={displayHiScores}>
+          View HiScores
         </button>
       </div>
     </div>
