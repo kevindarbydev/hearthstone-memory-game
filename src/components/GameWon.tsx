@@ -4,12 +4,12 @@ function GameWon({ score }) {
   const [nameToSave, setNameToSave] = useState("");
   const [sentScore, setSentScore] = useState(false);
   const [moves, setMoves] = useState(0);
-  const url = import.meta.env.VITE_URL;
+  
 
 
   useEffect(() => {    
    setMoves(score);
-  })
+  }, [score])
 
   function handleNameChange(event: React.ChangeEvent<HTMLInputElement>) {
     setNameToSave(event.target.value);
@@ -39,7 +39,10 @@ function GameWon({ score }) {
     };
 
     try {
-      fetch(url + "/saveScore", requestOptions)
+      fetch(
+        "https://qr85wnpqo0.execute-api.us-east-1.amazonaws.com/saveScore",
+        requestOptions
+      )
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -47,7 +50,7 @@ function GameWon({ score }) {
           return response.json();
         })
         .then(() => {
-          setSentScore(true);          
+          setSentScore(true);
         })
         .catch((error) => {
           console.error("Error:", error);

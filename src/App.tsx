@@ -93,6 +93,7 @@ function App() {
         }))
     );
     setBoard(resetBoard);
+    setShowScores(false);
     setGameCompleted(false);
     setMoveCount(0);
   };
@@ -146,7 +147,8 @@ function App() {
     <div className="grid">
       <h2 className="title">Hearthstone Memory Game</h2>
       <h3 className="counter">Guesses: {moveCount}</h3>
-      {!gameCompleted && (
+
+      {!gameCompleted && !showScores && (
         <div>
           {board.map((row, rowIndex) => (
             <div key={rowIndex} className="row">
@@ -171,9 +173,10 @@ function App() {
           ))}
         </div>
       )}
+
       {showScores && <HiScores />}
 
-      {gameCompleted && <GameWon score={moveCount}/>}
+      {gameCompleted && !showScores && <GameWon score={moveCount} />}
 
       <div className="bottom">
         <button onClick={handleReset} className="resetBtn">
@@ -181,7 +184,7 @@ function App() {
         </button>
         <br />
         <button className="hiscoreBtn" onClick={displayHiScores}>
-          View HiScores
+          View { showScores ? ("Board") : ("HiScores") }
         </button>
       </div>
     </div>

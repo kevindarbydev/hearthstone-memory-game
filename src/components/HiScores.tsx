@@ -1,44 +1,42 @@
 import { useState, useEffect } from "react";
 
 interface Score {
-  scoreKey: string;
+  SCOREKEY: string;
   name: string;
   count: number;
 }
+
 function HiScores() {
-  const [showScores, setShowScores] = useState(false);
   const [scores, setScores] = useState<Score[]>([]);
-  const url = import.meta.env.VITE_URL;
 
-   function capitalizeName(input: string) {
-     
-     const parts = input.split("-");
-     if (parts.length > 0) {
-       const name = parts[0];
-       const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+  function capitalizeName(input: string) {
+    const parts = input.split("-");
+    if (parts.length > 0) {
+      const name = parts[0];
+      const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
 
-       return capitalizedName;
-     }
-     return "";
-   }
-  
+      return capitalizedName;
+    }
+    return "";
+  }
+
   const fetchScores = async () => {
     try {
-      const response = await fetch(url + "/allScores");
+      const response = await fetch(
+        "https://qr85wnpqo0.execute-api.us-east-1.amazonaws.com/allScores"
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
 
       const data = await response.json();
-      // Assuming the response is an array of scores
       setScores(data);
     } catch (error) {
       console.error("Error fetching scores:", error);
     }
   };
 
-  // Fetch scores when the component mounts
   useEffect(() => {
     fetchScores();
   }, []);
@@ -46,10 +44,10 @@ function HiScores() {
   return (
     <div className="">
       <h2>Leaderboard</h2>
-      <ul>
+      <ul style={{ listStyleType: "none", textAlign: "center" }}>
         {scores.map((score) => (
-          <li key={score.scoreKey}>
-            {capitalizeName(score.scoreKey)}: {score.count}
+          <li key={score.SCOREKEY}>
+            {capitalizeName(score.SCOREKEY)}: {score.count}
           </li>
         ))}
       </ul>
