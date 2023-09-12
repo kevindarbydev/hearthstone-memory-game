@@ -41,17 +41,24 @@ function HiScores() {
     fetchScores();
   }, []);
 
+  const sortScores = async (scoreObjects: Score[]) => {
+    const newMap = Array.from(scoreObjects).sort((a,b) => a[1] - b[1]);
+    console.dir(newMap)
+  }
+
   return (
-    <div className="">
+    <>
       <h2>Leaderboard</h2>
-      <ul>
-        {scores.map((score) => (
-          <li key={score.SCOREKEY}>
-            {capitalizeName(score.SCOREKEY)}: {score.count}
-          </li>
-        ))}
-      </ul>
-    </div>
+      <div className="hi-scores">
+        <ol>
+          {scores.map((score) => (
+            <li key={score.SCOREKEY}>
+              {capitalizeName(score.SCOREKEY)}: {score.count}
+            </li>
+          ))}
+        </ol>
+      </div>
+    </>
   );
 }
 

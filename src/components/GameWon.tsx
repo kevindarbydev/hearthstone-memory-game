@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 interface GameWonProps {
   score: number;
+  sentScore: boolean;
 }
 function GameWon({ score }: GameWonProps) {
   const [nameToSave, setNameToSave] = useState("");

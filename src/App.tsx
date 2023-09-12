@@ -56,6 +56,7 @@ function App() {
   const [moveCount, setMoveCount] = useState(0);
   const [clickedTile, setClickedTile] = useState<Tile | null>(null);
   const [gameCompleted, setGameCompleted] = useState(false);
+  const [sentScore, setSentScore] = useState(false);
   const [showScores, setShowScores] = useState(false);
 
   useEffect(() => {
@@ -75,6 +76,9 @@ function App() {
     setBoard(initialBoard);
   
   }, []);  
+  useEffect(() => {
+    console.log("Detected change in sent boolean from main component, value is now: " + sentScore)
+  }, [sentScore])
  
   const displayHiScores = (): void => {
     setShowScores(!showScores);
@@ -95,6 +99,7 @@ function App() {
     setBoard(resetBoard);
     setShowScores(false);
     setGameCompleted(false);
+    setSentScore(false);
     setMoveCount(0);
   };
 
@@ -176,7 +181,7 @@ function App() {
 
       {showScores && <HiScores />}
 
-      {gameCompleted && !showScores && <GameWon score={moveCount} />}
+      {gameCompleted && !showScores && !sentScore && <GameWon score={moveCount} sentScore={sentScore} />}
 
       <div className="bottom">
         <button onClick={handleReset} className="resetBtn">

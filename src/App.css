@@ -64,6 +64,9 @@
   color: black;
   font: bold;
 }
+.hi-scores{
+  margin-left: -2.2rem;
+}
 ul {
   list-style-type: none;
 }
