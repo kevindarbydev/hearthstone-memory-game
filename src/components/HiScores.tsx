@@ -31,7 +31,9 @@ function HiScores() {
       }
 
       const data = await response.json();
-      setScores(data);
+      const sortedData = data.slice().sort((a: { count: number; }, b: { count: number; }) => a.count - b.count);
+      const limitedData = sortedData.slice(0, 10);
+      setScores(limitedData);
     } catch (error) {
       console.error("Error fetching scores:", error);
     }
@@ -40,11 +42,6 @@ function HiScores() {
   useEffect(() => {
     fetchScores();
   }, []);
-
-  const sortScores = async (scoreObjects: Score[]) => {
-    const newMap = Array.from(scoreObjects).sort((a,b) => a[1] - b[1]);
-    console.dir(newMap)
-  }
 
   return (
     <>

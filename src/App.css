@@ -15,7 +15,7 @@
   height: 400px;
   width: 450px;
   display: flex;
-  flex-direction: column; /* Align children vertically */
+  flex-direction: column;
   padding: 2rem;
   margin-bottom: 12rem;
 }
