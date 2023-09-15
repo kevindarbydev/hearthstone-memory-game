@@ -139,7 +139,7 @@ function App() {
             resetBoard[clickedTile.rowIndex][clickedTile.colIndex].isFlipped =
               false;
             setBoard(resetBoard);
-          }, 700);
+          }, 800);
         }
         setClickedTile(null); // clear the clickedTile after checking for a match
       } else {
