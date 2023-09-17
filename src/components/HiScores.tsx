@@ -48,11 +48,15 @@ function HiScores() {
       <h2>Leaderboard</h2>
       <div className="hi-scores">
         <ol>
-          {scores.map((score) => (
-            <li key={score.SCOREKEY}>
-              {capitalizeName(score.SCOREKEY)}: {score.count}
-            </li>
-          ))}
+          {scores ? (
+            scores.map((score) => (
+              <li key={score.SCOREKEY}>
+                {capitalizeName(score.SCOREKEY)}: {score.count}
+              </li>
+            ))
+          ) : (
+            <p>Loading...</p>
+          )}
         </ol>
       </div>
     </>

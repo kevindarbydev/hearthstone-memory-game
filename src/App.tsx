@@ -50,7 +50,6 @@ function shuffleArray(array: string[]) {
   return shuffled;
 }
 
-
 function App() {
   const [board, setBoard] = useState<Tile[][]>([]);
   const [moveCount, setMoveCount] = useState(0);
@@ -59,10 +58,10 @@ function App() {
   const [sentScore, setSentScore] = useState(false);
   const [showScores, setShowScores] = useState(false);
 
-  useEffect(() => {
+  const generateBoard = (images: string[]): Tile[][] => {
     setGameCompleted(false);
     const shuffledImages = shuffleArray(images);
-    const initialBoard: Tile[][] = Array.from({ length: 4 }, (_, rowIndex) =>
+    return Array.from({ length: 4 }, (_, rowIndex) =>
       shuffledImages
         .slice(rowIndex * 4, (rowIndex + 1) * 4)
         .map((image, colIndex) => ({
@@ -73,29 +72,18 @@ function App() {
           colIndex,
         }))
     );
-    setBoard(initialBoard);
-  
-  }, []);  
+  };
   useEffect(() => {
-    console.log("Detected change in sent boolean from main component, value is now: " + sentScore)
-  }, [sentScore])
- 
+    const initialBoard = generateBoard(images);
+    setBoard(initialBoard);
+  }, []);
+
   const displayHiScores = (): void => {
     setShowScores(!showScores);
-  }
+  };
+
   const handleReset = () => {
-    const shuffledImages = shuffleArray(images);
-    const resetBoard: Tile[][] = Array.from({ length: 4 }, (_, rowIndex) =>
-      shuffledImages
-        .slice(rowIndex * 4, (rowIndex + 1) * 4)
-        .map((image, colIndex) => ({
-          image,
-          isFlipped: false,
-          isMatched: false,
-          rowIndex,
-          colIndex,
-        }))
-    );
+    const resetBoard = generateBoard(images);
     setBoard(resetBoard);
     setShowScores(false);
     setGameCompleted(false);
@@ -181,7 +169,9 @@ function App() {
 
       {showScores && <HiScores />}
 
-      {gameCompleted && !showScores && !sentScore && <GameWon score={moveCount} sentScore={sentScore} />}
+      {gameCompleted && !showScores && !sentScore && (
+        <GameWon score={moveCount} sentScore={sentScore} />
+      )}
 
       <div className="bottom">
         <button onClick={handleReset} className="resetBtn">
@@ -189,7 +179,7 @@ function App() {
         </button>
         <br />
         <button className="hiscoreBtn" onClick={displayHiScores}>
-          View { showScores ? ("Board") : ("HiScores") }
+          View {showScores ? "Board" : "HiScores"}
         </button>
       </div>
     </div>
