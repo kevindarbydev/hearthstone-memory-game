@@ -61,8 +61,8 @@ function GameWon({ score }: GameWonProps) {
     }
   }
   return (
-    <div className="popup">
-      <div className="popup-text">
+    <div>
+      <div>
         <p>Congratulations! You've matched all tiles!</p>
         <p>
           You can enter your name or a nickname to have your score sent and
@@ -71,7 +71,7 @@ function GameWon({ score }: GameWonProps) {
       </div>
       <form>
         {!sentScore && (
-          <div className="submit-score">
+          <div>
             <label htmlFor="name">Name or Nickname: </label>
             <input
               type="text"
