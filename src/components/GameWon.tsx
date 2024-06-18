@@ -38,10 +38,11 @@ function GameWon({ score }: GameWonProps) {
       },
       body: JSON.stringify(data),
     };
+    const API_URL = process.env.NODE_API_URL;
 
     try {
       fetch(
-        "https://qr85wnpqo0.execute-api.us-east-1.amazonaws.com/saveScore",
+        API_URL + "saveScore",
         requestOptions
       )
         .then((response) => {

@@ -19,11 +19,11 @@ function HiScores() {
     }
     return "";
   }
-
+  const API_URL = process.env.NODE_API_URL;
   const fetchScores = async () => {
     try {
       const response = await fetch(
-        "https://qr85wnpqo0.execute-api.us-east-1.amazonaws.com/allScores"
+        API_URL + "/allScores"
       );
 
       if (!response.ok) {
