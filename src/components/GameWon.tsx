@@ -81,7 +81,7 @@ function GameWon({ score }: GameWonProps) {
               value={nameToSave}
               onChange={handleNameChange}
             />
-            <button className="saveBtn" onClick={handleSaveScore}>
+            <button className="btn" onClick={handleSaveScore}>
               Send Score
             </button>
           </div>

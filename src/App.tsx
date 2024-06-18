@@ -174,11 +174,11 @@ function App() {
       )}
 
       <div className="bottom">
-        <button onClick={handleReset} className="resetBtn">
+        <button onClick={handleReset} className="btn">
           Reset
         </button>
         <br />
-        <button className="hiscoreBtn" onClick={displayHiScores}>
+        <button className="btn" onClick={displayHiScores}>
           View {showScores ? "Board" : "HiScores"}
         </button>
       </div>

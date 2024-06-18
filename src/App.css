@@ -43,21 +43,7 @@
 .bottom {
   align-items: center;
 }
-.resetBtn {
-  margin-top: 1rem;
-  width: 50%;
-  background-color: brown;
-  color: black;
-  font: bold;
-}
-.saveBtn {
-  margin-top: 1rem;
-  width: 50%;
-  background-color: brown;
-  color: black;
-  font: bold;
-}
-.hiscoreBtn {
+.btn {
   margin-top: 1rem;
   width: 50%;
   background-color: brown;
