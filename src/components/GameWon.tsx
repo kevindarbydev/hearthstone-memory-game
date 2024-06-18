@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+
 interface GameWonProps {
   score: number;
   sentScore: boolean;
 }
+
 function GameWon({ score }: GameWonProps) {
   const [nameToSave, setNameToSave] = useState("");
   const [sentScore, setSentScore] = useState(false);
@@ -21,6 +23,8 @@ function GameWon({ score }: GameWonProps) {
     return `${name}-${timestamp}`;
   }
 
+  const API_URL = process.env.NODE_API_URL;
+
   function handleSaveScore(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     const scoreKey = generateScoreKey(nameToSave);
@@ -37,8 +41,7 @@ function GameWon({ score }: GameWonProps) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    };
-    const API_URL = process.env.NODE_API_URL;
+    };    
 
     try {
       fetch(
@@ -47,7 +50,7 @@ function GameWon({ score }: GameWonProps) {
       )
         .then((response) => {
           if (!response.ok) {
-            throw new Error("Network response was not ok");
+            throw new Error("Network response failed");
           }
           return response.json();
         })
@@ -61,6 +64,7 @@ function GameWon({ score }: GameWonProps) {
       console.error("Error:", error);
     }
   }
+
   return (
     <div>
       <div>
